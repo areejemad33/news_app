@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/config/theme/theme_manager.dart';
 import 'package:news_app/core/resources/routes_manager.dart';
+import 'package:news_app/providers/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const News());
+
+  runApp(ChangeNotifierProvider(
+    create: (_) => HomeScreenProvider(),
+    child: const News()));
 }
 
 class News extends StatelessWidget {
