@@ -11,13 +11,13 @@ class CategoryModel {
   });
 
   static List<CategoryModel> categories =[
-    CategoryModel(id: "id", name: "General", imagePath: ImageAssets.general),
-    CategoryModel(id: "id", name: "Business", imagePath: ImageAssets.business),
-    CategoryModel(id: "id", name: "Sports", imagePath: ImageAssets.sports),
-    CategoryModel(id: "id", name: "Technology", imagePath: ImageAssets.technology),
-    CategoryModel(id: "id", name: "Entertainment", imagePath: ImageAssets.entertainment),
-    CategoryModel(id: "id", name: "Health", imagePath: ImageAssets.health),
-    CategoryModel(id: "id", name: "Science", imagePath: ImageAssets.science),
+    CategoryModel(id: "general", name: "General", imagePath: ImageAssets.general),
+    CategoryModel(id: "business", name: "Business", imagePath: ImageAssets.business),
+    CategoryModel(id: "sports", name: "Sports", imagePath: ImageAssets.sports),
+    CategoryModel(id: "technology", name: "Technology", imagePath: ImageAssets.technology),
+    CategoryModel(id: "entertainment", name: "Entertainment", imagePath: ImageAssets.entertainment),
+    CategoryModel(id: "health", name: "Health", imagePath: ImageAssets.health),
+    CategoryModel(id: "science", name: "Science", imagePath: ImageAssets.science),
 
   ];
 }

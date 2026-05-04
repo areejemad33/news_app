@@ -5,6 +5,7 @@ import 'package:news_app/models/category_model.dart';
 
 class HomeScreenProvider extends ChangeNotifier {
   Widget homeScreenView = CategoriesView();
+  
 
   void goToSources(CategoryModel category ) {
     homeScreenView = SourcesView(category: category,);
@@ -14,5 +15,5 @@ class HomeScreenProvider extends ChangeNotifier {
   void goToCategories() {
     homeScreenView = CategoriesView();
     notifyListeners();
-  }
+  } 
 }

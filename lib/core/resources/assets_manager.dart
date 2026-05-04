@@ -8,4 +8,7 @@ abstract class ImageAssets {
   static const String science = "${_base}science.png";
   static const String technology = "${_base}technology.png";
 
+
+  
+
 }
