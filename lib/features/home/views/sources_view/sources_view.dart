@@ -9,6 +9,7 @@ import 'package:news_app/data/data_sources/articles_api_data_source_impl.dart';
 import 'package:news_app/data/data_sources/sources_api_data_source_impl.dart';
 import 'package:news_app/data/repositories/articles_repo_impl.dart';
 import 'package:news_app/data/repositories/sources_repo_impl.dart';
+import 'package:news_app/di/di.dart';
 import 'package:news_app/features/home/views/sources_view/article_item.dart';
 import 'package:news_app/features/home/views/sources_view/articles_view_model.dart';
 import 'package:news_app/features/home/views/sources_view/sources_view_model.dart';
@@ -30,20 +31,27 @@ class _SourcesViewState extends State<SourcesView> {
   void initState() {
     super.initState();
     fetchData();
-  }
+  } 
 
   void fetchData() async {
-    sourcesViewModel = SourcesViewModel(sourcesRepository:  SourcesRepoImpl(sourcesDataSource: SourcesApiDataSourceImpl(apiService: ApiService())));
-    articlesViewModel = ArticlesViewModel(articlesRepositery: ArticlesRepoImpl(articlesDataSource: ArticlesApiDataSourceImpl(apiService: ApiService())));
+    sourcesViewModel = SourcesViewModel(
+      sourcesRepository: SourcesRepoImpl(
+        sourcesDataSource: SourcesApiDataSourceImpl(apiService: ApiService()),
+      ),
+    );
+    articlesViewModel =  ArticlesViewModel(
+      articlesRepositery: ArticlesRepoImpl(
+        articlesDataSource: ArticlesApiDataSourceImpl(apiService: ApiService()),
+      ),
+    );
     await sourcesViewModel.loadSources(widget.category);
-if (sourcesViewModel.state is SourcesSucces) {
-  final sources =
-      (sourcesViewModel.state as SourcesSucces).sources;
+    if (sourcesViewModel.state is SourcesSucces) {
+      final sources = (sourcesViewModel.state as SourcesSucces).sources;
 
-  if (sources.isNotEmpty) {
-    articlesViewModel.loadArticles(sources.first);
-  } 
-}
+      if (sources.isNotEmpty) {
+        articlesViewModel.loadArticles(sources.first);
+      }
+    }
   }
 
   @override
@@ -115,39 +123,37 @@ if (sourcesViewModel.state is SourcesSucces) {
                   {
                     return Container();
                   }
-
-              
               }
             },
           ),
 
-        Consumer<ArticlesViewModel>(
-  builder: (_, viewModel, _) {
-    var state = viewModel.state;
-    switch (state) {
-      case ArticlesLoading():
-        return Center(child: CircularProgressIndicator());
-      
-      case ArticlesError():
-        return Center(child: Text(state.message));
-      
-      case ArticlesSucces():
-        List<Article> articles = state.articles;
-        return Expanded(
-          child: ListView.separated(
-            separatorBuilder: (_, index) => SizedBox(height: 16.h),
-            itemCount: articles.length,
-            itemBuilder: (_, index) {
-              return ArticleItem(article: articles[index]);
+          Consumer<ArticlesViewModel>(
+            builder: (_, viewModel, _) {
+              var state = viewModel.state;
+              switch (state) {
+                case ArticlesLoading():
+                  return Center(child: CircularProgressIndicator());
+
+                case ArticlesError():
+                  return Center(child: Text(state.message));
+
+                case ArticlesSucces():
+                  List<Article> articles = state.articles;
+                  return Expanded(
+                    child: ListView.separated(
+                      separatorBuilder: (_, index) => SizedBox(height: 16.h),
+                      itemCount: articles.length,
+                      itemBuilder: (_, index) {
+                        return ArticleItem(article: articles[index]);
+                      },
+                    ),
+                  );
+
+                default:
+                  return Container();
+              }
             },
           ),
-        );
-      
-      default:
-        return Container(); 
-    }
-  },
-)
         ],
       ),
     );

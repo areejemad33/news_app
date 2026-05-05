@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
-import 'package:news_app/providers/home_screen_provider.dart';
-import 'package:provider/provider.dart';
+
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+  CustomDrawer({super.key, required this.goToHome});
+
+  void Function() goToHome;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.sizeOf(context).width * .7,
+      width: MediaQuery.sizeOf(context).width * 0.7,
       child: Column(
         children: [
           Container(
@@ -30,20 +31,15 @@ class CustomDrawer extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           Padding(
-            padding: const EdgeInsets.all(14.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 InkWell(
                   onTap: () {
-                    Provider.of<HomeScreenProvider>(
-                      context,
-                      listen: false,
-                    ).goToCategories();
-                    Navigator.pop(context);
+                    goToHome();
                   },
                   child: Row(
                     children: [
-                      SizedBox(width: 8),
                       Icon(Icons.home_filled, color: ColorsManager.white),
                       SizedBox(width: 8),
                       Text(
@@ -57,13 +53,12 @@ class CustomDrawer extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 24.h),
                 Divider(height: 1, thickness: 1, color: ColorsManager.white),
                 SizedBox(height: 24.h),
-
                 Row(
                   children: [
-                    SizedBox(width: 8),
                     Icon(Icons.mode_night_outlined, color: ColorsManager.white),
                     SizedBox(width: 8),
                     Text(
@@ -78,15 +73,16 @@ class CustomDrawer extends StatelessWidget {
                 ),
 
                 SizedBox(height: 8.h),
+
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(width: 1, color: ColorsManager.white),
                   ),
+
                   child: Row(
                     children: [
-                      SizedBox(width: 8),
                       Text(
                         "Dark",
                         style: GoogleFonts.inter(
@@ -97,11 +93,9 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       Spacer(),
                       DropdownButton(
-                        iconEnabledColor: ColorsManager.white,
-
                         underline: Container(),
-                        items: ["Light", "Dark"].map((String value) {
-                          return DropdownMenuItem<String>(
+                        items: ["Light", "Dark"].map((value) {
+                          return DropdownMenuItem(
                             value: value,
                             child: Text(value),
                           );
@@ -116,7 +110,6 @@ class CustomDrawer extends StatelessWidget {
                 SizedBox(height: 24.h),
                 Row(
                   children: [
-                    SizedBox(width: 8),
                     Icon(Icons.language, color: ColorsManager.white),
                     SizedBox(width: 8),
                     Text(
@@ -129,16 +122,16 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 16),
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(width: 1, color: ColorsManager.white),
                   ),
+
                   child: Row(
                     children: [
-                      SizedBox(width: 8),
                       Text(
                         "English",
                         style: GoogleFonts.inter(
@@ -149,11 +142,9 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       Spacer(),
                       DropdownButton(
-                        iconEnabledColor: ColorsManager.white,
-
                         underline: Container(),
-                        items: ["English", "Arabic"].map((String value) {
-                          return DropdownMenuItem<String>(
+                        items: ["English", "Arabic"].map((value) {
+                          return DropdownMenuItem(
                             value: value,
                             child: Text(value),
                           );

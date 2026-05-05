@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
-
+import 'package:news_app/features/home/views/categories_view/categories_view.dart';
+import 'package:news_app/features/home/views/sources_view/sources_view.dart';
 import 'package:news_app/features/home/widgets/custom_drawer.dart';
-import 'package:news_app/providers/home_screen_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:news_app/models/category_model.dart';
 
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Widget view = CategoriesView(onCategoryItemClicked: onCategoryItemClicked,);
+
+  String title = "Home";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
-        
+        title: Text(title),
       ),
-      drawer: CustomDrawer(),
-      body: Provider.of<HomeScreenProvider>(context).homeScreenView,
+      drawer:CustomDrawer(goToHome: goToHome,  ),
+      body: view,
     );
   }
+
+  void onCategoryItemClicked(CategoryModel category){
+    title = category.name;
+    view = SourcesView(category: category,);
+    setState(() {
+
+    });
+  }
+
+  void goToHome(){
+    view = CategoriesView(onCategoryItemClicked: onCategoryItemClicked);
+    setState(() {
+
+    });
+ Navigator.pop(context);
+  }
 }
+
+
+
