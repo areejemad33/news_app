@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news_app/data/apis/result.dart';
 import 'package:news_app/data/apis/sources_response/source.dart';
 import 'package:news_app/data/repositories/sources_repositery.dart';
 import 'package:news_app/models/category_model.dart';
-
+@injectable
 class SourcesViewModel extends ChangeNotifier {
   SourcesRepository sourcesRepository;
   SourcesViewModel({required this.sourcesRepository});

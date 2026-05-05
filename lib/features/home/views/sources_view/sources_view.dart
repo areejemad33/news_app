@@ -34,16 +34,8 @@ class _SourcesViewState extends State<SourcesView> {
   } 
 
   void fetchData() async {
-    sourcesViewModel = SourcesViewModel(
-      sourcesRepository: SourcesRepoImpl(
-        sourcesDataSource: SourcesApiDataSourceImpl(apiService: ApiService()),
-      ),
-    );
-    articlesViewModel =  ArticlesViewModel(
-      articlesRepositery: ArticlesRepoImpl(
-        articlesDataSource: ArticlesApiDataSourceImpl(apiService: ApiService()),
-      ),
-    );
+    sourcesViewModel = serviceLocator.get<SourcesViewModel>();
+    articlesViewModel = serviceLocator.get<ArticlesViewModel>();
     await sourcesViewModel.loadSources(widget.category);
     if (sourcesViewModel.state is SourcesSucces) {
       final sources = (sourcesViewModel.state as SourcesSucces).sources;

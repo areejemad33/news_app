@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news_app/data/apis/articles_response/article.dart';
 import 'package:news_app/data/apis/result.dart';
 import 'package:news_app/data/apis/sources_response/source.dart';
 import 'package:news_app/data/repositories/articles_repositery.dart';
-
+@injectable
 class ArticlesViewModel extends ChangeNotifier {
   ArticlesRepositery articlesRepositery;
   ArticlesViewModel({required this.articlesRepositery});

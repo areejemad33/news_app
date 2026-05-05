@@ -6,9 +6,10 @@ import 'package:news_app/di/di.dart';
 import 'config/theme/theme_manager.dart';
 
 void main() {
-  // configureDependencies();
+  configureDependencies();
   runApp(const News());
 }
+
 
 class News extends StatelessWidget {
   const News({super.key});

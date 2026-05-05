@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 import 'package:news_app/data/apis/articles_response/article.dart';
 import 'package:news_app/data/apis/articles_response/articles_response.dart';
 import 'package:news_app/data/apis/result.dart';
 import 'package:news_app/data/apis/sources_response/source.dart';
 import 'package:news_app/data/apis/sources_response/sources_response.dart';
 import 'package:news_app/models/category_model.dart';
-
+@singleton 
 class ApiService {
   static const String baseUrl = "newsapi.org";
   static const String apiKey = "15ce30f4fff8484994d5342ceb229830";
