@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/apis/api_service.dart';
-import 'package:news_app/apis/result.dart';
-import 'package:news_app/apis/sources_response/source.dart';
+import 'package:news_app/data/apis/result.dart';
+import 'package:news_app/data/apis/sources_response/source.dart';
+import 'package:news_app/data/repositories/sources_repositery.dart';
 import 'package:news_app/models/category_model.dart';
 
 class SourcesViewModel extends ChangeNotifier {
+  SourcesRepository sourcesRepository;
+  SourcesViewModel({required this.sourcesRepository});
  SourcesState state = SourcesInitial();
  void emit(SourcesState newState) {
     state = newState;
@@ -13,7 +15,7 @@ class SourcesViewModel extends ChangeNotifier {
 
   Future<void> loadSources(CategoryModel category) async {
     emit(SourcesLoading());
-    var result = await ApiService.getSources(category);
+    var result = await sourcesRepository.getSources(category);
   
     switch (result) {
       case Success():

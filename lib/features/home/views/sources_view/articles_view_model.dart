@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/apis/api_service.dart';
-import 'package:news_app/apis/articles_response/article.dart';
-import 'package:news_app/apis/result.dart';
-import 'package:news_app/apis/sources_response/source.dart';
+import 'package:news_app/data/apis/articles_response/article.dart';
+import 'package:news_app/data/apis/result.dart';
+import 'package:news_app/data/apis/sources_response/source.dart';
+import 'package:news_app/data/repositories/articles_repositery.dart';
 
 class ArticlesViewModel extends ChangeNotifier {
+  ArticlesRepositery articlesRepositery;
+  ArticlesViewModel({required this.articlesRepositery});
   ArticlesState state = ArticlesInitial();
   void emit(ArticlesState newState) {
     state = newState;
@@ -13,7 +15,7 @@ class ArticlesViewModel extends ChangeNotifier {
 
   Future<void> loadArticles(Source source) async {
     emit(ArticlesLoading());
-    var result = await ApiService.getArticles(source);
+    var result = await articlesRepositery.getArticles(source);
 
     notifyListeners();
     switch (result) {

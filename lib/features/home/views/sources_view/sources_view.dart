@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/apis/articles_response/article.dart';
-import 'package:news_app/apis/sources_response/source.dart';
+import 'package:news_app/data/apis/api_service.dart';
+import 'package:news_app/data/apis/articles_response/article.dart';
+import 'package:news_app/data/apis/sources_response/source.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
+import 'package:news_app/data/data_sources/articles_api_data_source_impl.dart';
+import 'package:news_app/data/data_sources/sources_api_data_source_impl.dart';
+import 'package:news_app/data/repositories/articles_repo_impl.dart';
+import 'package:news_app/data/repositories/sources_repo_impl.dart';
 import 'package:news_app/features/home/views/sources_view/article_item.dart';
 import 'package:news_app/features/home/views/sources_view/articles_view_model.dart';
 import 'package:news_app/features/home/views/sources_view/sources_view_model.dart';
@@ -28,8 +33,8 @@ class _SourcesViewState extends State<SourcesView> {
   }
 
   void fetchData() async {
-    sourcesViewModel = SourcesViewModel();
-    articlesViewModel = ArticlesViewModel();
+    sourcesViewModel = SourcesViewModel(sourcesRepository:  SourcesRepoImpl(sourcesDataSource: SourcesApiDataSourceImpl(apiService: ApiService())));
+    articlesViewModel = ArticlesViewModel(articlesRepositery: ArticlesRepoImpl(articlesDataSource: ArticlesApiDataSourceImpl(apiService: ApiService())));
     await sourcesViewModel.loadSources(widget.category);
 if (sourcesViewModel.state is SourcesSucces) {
   final sources =
@@ -37,7 +42,7 @@ if (sourcesViewModel.state is SourcesSucces) {
 
   if (sources.isNotEmpty) {
     articlesViewModel.loadArticles(sources.first);
-  }
+  } 
 }
   }
 

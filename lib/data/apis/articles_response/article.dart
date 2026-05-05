@@ -1,4 +1,4 @@
-import 'package:news_app/apis/sources_response/source.dart';
+import 'package:news_app/data/apis/sources_response/source.dart';
 
 
 
