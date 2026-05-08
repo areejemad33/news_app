@@ -82,4 +82,99 @@ class ApiService {
       return Error(message: exeption.toString());
     }
   }
+
+Future<Result<List<Article>>> searchArticles(
+  String searchKey,
+  int page,
+) async {
+  try {
+    Uri url = Uri.https(baseUrl, articlesEndPoint, {
+      'apiKey': apiKey,
+      'q': searchKey,
+      'page': page.toString(),
+      'pageSize': '10',
+    });
+
+    http.Response serverResponse = await http.get(url);
+
+    var json = jsonDecode(serverResponse.body);
+
+    ArticlesResponse articlesResponse =
+        ArticlesResponse.fromJson(json);
+
+    if (articlesResponse.status == 'error') {
+      return ServerError(
+        code: articlesResponse.code ?? '',
+        message:
+            articlesResponse.message ??
+                'Failed to load articles',
+      );
+    } else {
+      return Success(
+        data: articlesResponse.articles ?? [],
+      );
+    }
+  } catch (exeption) {
+    if (exeption is SocketException) {
+      return Error(message: 'No Internet connection 😑');
+    }
+
+    if (exeption is HttpException) {
+      return Error(
+        message: "Couldn't find the post 😱",
+      );
+    }
+
+    if (exeption is FormatException) {
+      return Error(
+        message: "Bad response format 👎",
+      );
+    }
+
+    return Error(message: exeption.toString());
+  }
+}
+
+
+Future<Result<List<Article>>> getGeneralArticles(
+  int page,
+) async {
+  try {
+
+    Uri url = Uri.https(baseUrl, articlesEndPoint, {
+      'apiKey': apiKey,
+      'q': 'news',
+      'page': page.toString(),
+      'pageSize': '10',
+    });
+
+    http.Response serverResponse =
+        await http.get(url);
+
+    var json = jsonDecode(serverResponse.body);
+
+    ArticlesResponse articlesResponse =
+        ArticlesResponse.fromJson(json);
+
+    if (articlesResponse.status == 'error') {
+
+      return ServerError(
+        code: articlesResponse.code ?? '',
+        message:
+            articlesResponse.message ??
+                'Failed to load articles',
+      );
+
+    } else {
+
+      return Success(
+        data: articlesResponse.articles ?? [],
+      );
+    }
+
+  } catch (e) {
+
+    return Error(message: e.toString());
+  }
+}
 }

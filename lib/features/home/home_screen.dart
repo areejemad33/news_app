@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/features/home/search_screen.dart';
 import 'package:news_app/features/home/views/categories_view/categories_view.dart';
 import 'package:news_app/features/home/views/sources_view/sources_view.dart';
 import 'package:news_app/features/home/widgets/custom_drawer.dart';
@@ -20,6 +22,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(    onPressed: () {
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const SearchScreen(),
+      ),
+    );
+
+  }, icon:  Icon(Icons.search, size: 26.sp,))
+        ],
         title: Text(title),
       ),
       drawer:CustomDrawer(goToHome: goToHome,  ),
