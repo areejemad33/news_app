@@ -22,7 +22,8 @@ backgroundColor: ColorsManager.black,
     ),
 
     textTheme: TextTheme(
-titleMedium: GoogleFonts.inter(fontSize: 24.sp, fontWeight: FontWeight.bold, color: ColorsManager.white)
+titleMedium: GoogleFonts.inter(fontSize: 24.sp, fontWeight: FontWeight.bold, color: ColorsManager.white),
+titleSmall: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.bold, color: ColorsManager.white)
     )
   );
     static final ThemeData dark = ThemeData();
