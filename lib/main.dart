@@ -11,11 +11,7 @@ void main() {
   configureDependencies();
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => SearchProvider(),
-        ),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => SearchProvider())],
       child: const News(),
     ),
   );

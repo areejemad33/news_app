@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
 import 'package:news_app/data/apis/articles_response/article.dart';
@@ -31,13 +32,19 @@ Future<void> launchArticle() async {
           /// IMAGE
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              article.urlToImage ??
-                  "",
-              height: 220,
-              width: double.infinity,
+            child:
+            
+                CachedNetworkImage(
+            
+            height: 220,
+                      width: double.infinity,
               fit: BoxFit.cover,
-            ),
+          imageUrl: article.urlToImage ?? '',
+          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+       ),  
+            
+          
           ),
 
           const SizedBox(height: 16),
