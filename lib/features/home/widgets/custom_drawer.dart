@@ -72,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 8.h),
+                SizedBox(height: 12.h),
 
                 Container(
                   padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -93,11 +93,14 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       Spacer(),
                       DropdownButton(
-                        underline: Container(),
+                        
+                        underline: Container(
+                        
+                        ),
                         items: ["Light", "Dark"].map((value) {
                           return DropdownMenuItem(
                             value: value,
-                            child: Text(value),
+                            child: Text(value, style: TextStyle(color: ColorsManager.black)),
                           );
                         }).toList(),
                         onChanged: (_) {},
@@ -105,9 +108,9 @@ class CustomDrawer extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 26.h),
                 Divider(height: 1, thickness: 1, color: ColorsManager.white),
-                SizedBox(height: 24.h),
+                SizedBox(height: 26.h),
                 Row(
                   children: [
                     Icon(Icons.language, color: ColorsManager.white),
@@ -146,7 +149,7 @@ class CustomDrawer extends StatelessWidget {
                         items: ["English", "Arabic"].map((value) {
                           return DropdownMenuItem(
                             value: value,
-                            child: Text(value),
+                            child: Text(value,style: TextStyle(color: ColorsManager.black)),
                           );
                         }).toList(),
                         onChanged: (_) {},
