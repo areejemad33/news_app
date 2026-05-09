@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/resources/routes_manager.dart';
 import 'package:news_app/di/di.dart';
+import 'package:news_app/providers/search_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'config/theme/theme_manager.dart';
 
 void main() {
   configureDependencies();
-  runApp(const News());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => SearchProvider(),
+        ),
+      ],
+      child: const News(),
+    ),
+  );
 }
-
 
 class News extends StatelessWidget {
   const News({super.key});

@@ -136,45 +136,5 @@ Future<Result<List<Article>>> searchArticles(
 }
 
 
-Future<Result<List<Article>>> getGeneralArticles(
-  int page,
-) async {
-  try {
 
-    Uri url = Uri.https(baseUrl, articlesEndPoint, {
-      'apiKey': apiKey,
-      'q': 'news',
-      'page': page.toString(),
-      'pageSize': '10',
-    });
-
-    http.Response serverResponse =
-        await http.get(url);
-
-    var json = jsonDecode(serverResponse.body);
-
-    ArticlesResponse articlesResponse =
-        ArticlesResponse.fromJson(json);
-
-    if (articlesResponse.status == 'error') {
-
-      return ServerError(
-        code: articlesResponse.code ?? '',
-        message:
-            articlesResponse.message ??
-                'Failed to load articles',
-      );
-
-    } else {
-
-      return Success(
-        data: articlesResponse.articles ?? [],
-      );
-    }
-
-  } catch (e) {
-
-    return Error(message: e.toString());
-  }
-}
 }
